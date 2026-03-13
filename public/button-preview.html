@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview — Botões Águia Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #090909; color: #fff; }
+
+    /* ─── LAYOUT: 3 painéis lado a lado ─── */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      min-height: calc(100vh - 56px);
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 60px 40px;
+    }
+    .panel--black { background: #090909; border-right: 1px solid rgba(255,255,255,0.06); }
+    .panel--white { background: #ffffff; border-right: 1px solid #e0e0e0; }
+    .panel--green { background: #00FF7F; }
+
+    .panel-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.7;
+    }
+    .panel--black .panel-label { color: rgba(255,255,255,0.35); }
+    .panel--white .panel-label,
+    .panel--green .panel-label { color: rgba(0,0,0,0.35); }
+
+    /* ─── BASE: todos compartilham ─── */
+    .btn {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════════
+       VARIANTE 1 — fundo PRETO
+       Botão: verde animado → hover: BRANCO
+    ════════════════════════════════════════ */
+    .btn--on-black {
+      background: linear-gradient(-45deg, #00FF7F, #00CC66, #00FF7F, #00CC66, #00FF7F, #00CC66);
+      background-size: 800% 400%;
+      color: #0a0a0a;
+      animation: gradAnim 5s cubic-bezier(.62,.28,.23,.99) infinite both;
+    }
+    /* overlay branco */
+    .btn--on-black::before {
+      content: "";
+      background: #ffffff;
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+      border-radius: 10px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+    .btn--on-black:hover::before { transform: scaleX(1); transition: transform 1s ease; }
+    .btn--on-black:hover .btn__text { color: #0a0a0a; }
+    /* shiner branco */
+    .btn--on-black::after {
+      content: '';
+      background: linear-gradient(10deg, rgba(255,255,255,0.55) 12.81%, rgba(255,255,255,0) 66.66%);
+      mix-blend-mode: overlay;
+      width: 90px; height: 160%;
+      position: absolute;
+      transform: translateX(-50%) skew(-25deg);
+      bottom: 0%; left: -10%;
+      pointer-events: none;
+      animation: shiner 6s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    /* ════════════════════════════════════════
+       VARIANTE 2 — fundo BRANCO
+       Botão: preto animado → hover: VERDE
+    ════════════════════════════════════════ */
+    .btn--on-white {
+      background: linear-gradient(-45deg, #0a0a0a, #1c1c1c, #0a0a0a, #1c1c1c, #0a0a0a, #1c1c1c);
+      background-size: 800% 400%;
+      color: #00FF7F;
+      animation: gradAnim 5s cubic-bezier(.62,.28,.23,.99) infinite both;
+    }
+    /* overlay verde */
+    .btn--on-white::before {
+      content: "";
+      background: #00FF7F;
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+      border-radius: 10px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+    .btn--on-white:hover::before { transform: scaleX(1); transition: transform 1s ease; }
+    .btn--on-white:hover .btn__text { color: #0a0a0a; }
+    /* shiner verde */
+    .btn--on-white::after {
+      content: '';
+      background: linear-gradient(10deg, rgba(209,210,234,0.9) 12.81%, rgba(209,210,234,0) 66.66%);
+      mix-blend-mode: screen;
+      filter: blur(6px);
+      width: 90px; height: 160%;
+      position: absolute;
+      transform: translateX(-50%) skew(-25deg);
+      bottom: 0%; left: -10%;
+      pointer-events: none;
+      animation: shiner 6s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    /* ════════════════════════════════════════
+       VARIANTE 3 — fundo VERDE
+       Botão: preto animado → hover: BRANCO
+    ════════════════════════════════════════ */
+    .btn--on-green {
+      background: linear-gradient(-45deg, #0a0a0a, #1c1c1c, #0a0a0a, #1c1c1c, #0a0a0a, #1c1c1c);
+      background-size: 800% 400%;
+      color: #00FF7F;
+      animation: gradAnim 5s cubic-bezier(.62,.28,.23,.99) infinite both;
+    }
+    /* overlay branco */
+    .btn--on-green::before {
+      content: "";
+      background: #ffffff;
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+      border-radius: 10px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+    .btn--on-green:hover::before { transform: scaleX(1); transition: transform 1s ease; }
+    .btn--on-green:hover .btn__text { color: #0a0a0a; }
+    /* shiner branco */
+    .btn--on-green::after {
+      content: '';
+      background: linear-gradient(10deg, rgba(209,210,234,0.9) 12.81%, rgba(209,210,234,0) 66.66%);
+      mix-blend-mode: screen;
+      filter: blur(6px);
+      width: 90px; height: 160%;
+      position: absolute;
+      transform: translateX(-50%) skew(-25deg);
+      bottom: 0%; left: -10%;
+      pointer-events: none;
+      animation: shiner 6s 2s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    /* ─── TEXTO (acima de overlays) ─── */
+    .btn__text {
+      position: relative;
+      z-index: 9;
+      transition: color 0.5s ease;
+      display: inline-block;
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes gradAnim {
+      0%, 100% { background-position: 0% 50%; }
+      50%       { background-position: 100% 50%; }
+    }
+    @keyframes shiner {
+      0%, 100% { left: -10%; opacity: 0; }
+      20%       { opacity: 1; }
+      48%       { left: 140%; opacity: 1; }
+      51%       { opacity: 0; }
+    }
+
+    /* ─── DESCRIÇÕES ─── */
+    .desc {
+      font-size: 11px;
+      line-height: 1.65;
+      text-align: center;
+      max-width: 260px;
+    }
+    .panel--black .desc { color: rgba(255,255,255,0.3); }
+    .panel--white .desc { color: rgba(0,0,0,0.35); }
+    .panel--green .desc { color: rgba(0,0,0,0.4); }
+
+    /* ─── HEADER ─── */
+    .header {
+      background: #111;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-dot { width: 8px; height: 8px; border-radius: 50%; background: #00FF7F; box-shadow: 0 0 10px #00FF7F; }
+    .header-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; color: #fff; }
+    .header-sub { font-size: 11px; color: rgba(255,255,255,0.3); margin-left: auto; }
+
+    /* ─── HOVER BADGE ─── */
+    .hover-badge {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .panel--black .hover-badge { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+    .panel--white .hover-badge { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.4); }
+    .panel--green .hover-badge { background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-dot"></div>
+    <span class="header-title">Águia Digital — Button Preview v2</span>
+    <span class="header-sub">↙ Passe o mouse sobre os botões para ver o hover</span>
+  </div>
+
+  <div class="page">
+
+    <!-- PAINEL 1: FUNDO PRETO -->
+    <div class="panel panel--black">
+      <div class="panel-label">Fundo preto<br/>Verde → Branco no hover</div>
+      <span class="hover-badge">hover: branco →</span>
+
+      <a class="btn btn--on-black" href="#">
+        <span class="btn__text">QUERO SER ÁGUIA</span>
+      </a>
+      <a class="btn btn--on-black" href="#">
+        <span class="btn__text">QUERO ESCALAR AGORA</span>
+      </a>
+      <a class="btn btn--on-black" href="#">
+        <span class="btn__text">AGENDAR DIAGNÓSTICO</span>
+      </a>
+
+      <p class="desc">Gradiente verde animado · Overlay branco no hover · Shiner diagonal a cada 6s</p>
+    </div>
+
+    <!-- PAINEL 2: FUNDO BRANCO -->
+    <div class="panel panel--white">
+      <div class="panel-label">Fundo branco<br/>Preto → Verde no hover</div>
+      <span class="hover-badge">hover: verde →</span>
+
+      <a class="btn btn--on-white" href="#">
+        <span class="btn__text">QUERO SER O PRÓXIMO CASE</span>
+      </a>
+      <a class="btn btn--on-white" href="#">
+        <span class="btn__text">VER RESULTADOS</span>
+      </a>
+
+      <p class="desc">Gradiente preto animado · Overlay verde no hover · Shiner verde a cada 6s</p>
+    </div>
+
+    <!-- PAINEL 3: FUNDO VERDE -->
+    <div class="panel panel--green">
+      <div class="panel-label">Fundo verde<br/>Preto → Branco no hover</div>
+      <span class="hover-badge">hover: branco →</span>
+
+      <a class="btn btn--on-green" href="#">
+        <span class="btn__text">QUERO RESOLVER MEU PROBLEMA</span>
+      </a>
+      <a class="btn btn--on-green" href="#">
+        <span class="btn__text">QUERO SER ÁGUIA</span>
+      </a>
+
+      <p class="desc">Gradiente preto animado · Overlay branco no hover · Shiner branco a cada 6s</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
