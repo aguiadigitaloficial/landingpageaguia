@@ -67,13 +67,14 @@ const Navbar = () => {
               </button>
             ))}
           </div>
-          <CtaButton
-            variant="dark"
-            onClick={() => scrollTo("Diagnóstico")}
-            className="hidden lg:block"
-          >
-            QUERO SER ÁGUIA
-          </CtaButton>
+          <div className="hidden lg:flex">
+            <CtaButton
+              variant="dark"
+              onClick={() => scrollTo("Diagnóstico")}
+            >
+              QUERO SER ÁGUIA
+            </CtaButton>
+          </div>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden text-foreground"
