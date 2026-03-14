@@ -101,7 +101,7 @@ export function BeforeAfterSection() {
 
         .pwd-header {
           text-align: center;
-          margin-bottom: 72px;
+          margin-bottom: 110px;
           opacity: 0;
         }
 
@@ -189,15 +189,17 @@ export function BeforeAfterSection() {
           border-color: rgba(239, 68, 68, 0.15); /* Vermelho muito sutil */
         }
 
-        /* Ícone flutuante acima dos cards */
+        /* Ícone flutuante: Posicionado na borda, ocupa pouca margem extra */
         .card-icon {
           position: absolute;
-          top: 0;
+          top: -30px; /* metade fora da caixa */
           left: 50%;
           transform: translateX(-50%) translateY(20px);
+          width: 60px;
+          height: 60px;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
           z-index: 10;
         }
 
@@ -206,7 +208,29 @@ export function BeforeAfterSection() {
         .col-lose-wrapper:hover .card-icon,
         .col-lose-wrapper.active .card-icon {
           opacity: 1;
-          transform: translateX(-50%) translateY(-76px);  /* sobe e aparece distante do top card */
+          transform: translateX(-50%) translateY(0px); /* Para na borda! */
+        }
+        
+        .icon-base {
+          position: absolute;
+          inset: 0;
+          filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
+        }
+
+        /* Shine sweep amigável para iOS via máscara CSS */
+        .icon-shine {
+          position: absolute;
+          inset: 0;
+          -webkit-mask-image: linear-gradient(135deg, transparent 35%, rgba(0,0,0,1) 50%, transparent 65%);
+          -webkit-mask-size: 300% 300%;
+          mask-image: linear-gradient(135deg, transparent 35%, rgba(0,0,0,1) 50%, transparent 65%);
+          mask-size: 300% 300%;
+          animation: shineMask 2s infinite ease-in-out;
+        }
+
+        @keyframes shineMask {
+          0% { -webkit-mask-position: 200% 200%; mask-position: 200% 200%; }
+          100% { -webkit-mask-position: -50% -50%; mask-position: -50% -50%; }
         }
 
         /* Typography & Badges refinados */
@@ -343,7 +367,7 @@ export function BeforeAfterSection() {
           .col-win { min-height: 400px; padding: 32px 28px; }
           .col-lose { min-height: 240px; padding: 28px 24px; }
           .col-lose-wrapper { margin-top: 64px; }
-          .pwd-header { margin-bottom: 56px; }
+          .pwd-header { margin-bottom: 96px; }
           .pwd-h3.h3-win { font-size: 19px; }
           .pwd-h3.h3-lose { font-size: 15px; }
         }
@@ -353,7 +377,7 @@ export function BeforeAfterSection() {
           .pwd-arena {
             flex-direction: column;
             align-items: stretch;
-            gap: 20px;
+            gap: 120px; /* Expansão drástica do gap para zero colisões */
           }
           .pwd-card {
             border-radius: 12px !important;
@@ -364,7 +388,7 @@ export function BeforeAfterSection() {
           .col-lose { filter: none; } /* No desaturation on mobile */
           .vs-col { display: none; } /* Oculta o "VS" no mobile pra ficar mais limpo */
           .arena-base { display: none; }
-          .pwd-header { margin-bottom: 40px; }
+          .pwd-header { margin-bottom: 96px; }
         }
       `}</style>
 
@@ -424,18 +448,11 @@ export function BeforeAfterSection() {
           }}
         >
           <div className="card-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="shineGreen" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor={GreenColor} />
-                  <stop offset="40%" stopColor={GreenColor} />
-                  <stop offset="50%" stopColor="#ffffff" />
-                  <stop offset="60%" stopColor={GreenColor} />
-                  <stop offset="100%" stopColor={GreenColor} />
-                  <animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="1 0" dur="2s" repeatCount="indefinite" />
-                </linearGradient>
-              </defs>
-              <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z" fill="url(#shineGreen)"/>
+            <svg className="icon-base" width="60" height="60" viewBox="0 0 24 24" fill={GreenColor} xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z"/>
+            </svg>
+            <svg className="icon-shine" width="60" height="60" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z"/>
             </svg>
           </div>
 
@@ -483,18 +500,11 @@ export function BeforeAfterSection() {
           }}
         >
           <div className="card-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="shineRed" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#EF4444" />
-                  <stop offset="40%" stopColor="#EF4444" />
-                  <stop offset="50%" stopColor="#ffffff" />
-                  <stop offset="60%" stopColor="#EF4444" />
-                  <stop offset="100%" stopColor="#EF4444" />
-                  <animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="1 0" dur="2s" repeatCount="indefinite" />
-                </linearGradient>
-              </defs>
-              <path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z" fill="url(#shineRed)"/>
+            <svg className="icon-base" width="60" height="60" viewBox="0 0 24 24" fill="#EF4444" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"/>
+            </svg>
+            <svg className="icon-shine" width="60" height="60" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"/>
             </svg>
           </div>
 
