@@ -7,8 +7,6 @@ const navLinks = ["Início", "Diferencial", "Soluções", "Casos de Sucesso", "N
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [lastY, setLastY] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("Início");
 
@@ -16,12 +14,10 @@ const Navbar = () => {
     const handle = () => {
       const y = window.scrollY;
       setScrolled(y > 80);
-      setHidden(y > lastY && y > 200);
-      setLastY(y);
     };
     window.addEventListener("scroll", handle, { passive: true });
     return () => window.removeEventListener("scroll", handle);
-  }, [lastY]);
+  }, []);
 
   const scrollTo = (id: string) => {
     setActive(id);
@@ -42,7 +38,7 @@ const Navbar = () => {
     <>
       <motion.nav
         initial={{ y: 0 }}
-        animate={{ y: hidden ? -100 : 0 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
           scrolled
