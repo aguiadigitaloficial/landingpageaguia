@@ -1,39 +1,42 @@
-
+import React, { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import ClientsCarousel from "@/components/ClientsCarousel";
-import PlatformsSection from "@/components/PlatformsSection";
-import ProblemsSection from "@/components/ProblemsSection";
-import BeforeAfterSection from "@/components/BeforeAfterSection";
-import SolutionsSection from "@/components/SolutionsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import TeamSection from "@/components/TeamSection";
-import TimelineSection from "@/components/TimelineSection";
-import QuoteSection from "@/components/QuoteSection";
-import DiagnosticForm from "@/components/DiagnosticForm";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
+
+// Lazy load: tudo abaixo do fold carrega sob demanda
+const ClientsCarousel = React.lazy(() => import("@/components/ClientsCarousel"));
+const ProblemsSection = React.lazy(() => import("@/components/ProblemsSection"));
+const PlatformsSection = React.lazy(() => import("@/components/PlatformsSection"));
+const BeforeAfterSection = React.lazy(() => import("@/components/BeforeAfterSection"));
+const SolutionsSection = React.lazy(() => import("@/components/SolutionsSection"));
+const TestimonialsSection = React.lazy(() => import("@/components/TestimonialsSection"));
+const TeamSection = React.lazy(() => import("@/components/TeamSection"));
+const TimelineSection = React.lazy(() => import("@/components/TimelineSection"));
+const QuoteSection = React.lazy(() => import("@/components/QuoteSection"));
+const DiagnosticForm = React.lazy(() => import("@/components/DiagnosticForm"));
+const CTASection = React.lazy(() => import("@/components/CTASection"));
+const Footer = React.lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   return (
     <>
       <div className="noise-overlay" />
-      
+
       <Navbar />
       <main style={{ position: 'relative', zIndex: 2 }}>
         <HeroSection />
-        <ClientsCarousel />
-        <ProblemsSection />
-        <PlatformsSection />
-        <BeforeAfterSection />
-        <SolutionsSection />
-        <TestimonialsSection />
-        <TeamSection />
-        <TimelineSection />
-        <QuoteSection />
-        <DiagnosticForm />
-        <CTASection />
-        <Footer />
+        <Suspense fallback={null}>
+          <ClientsCarousel />
+          <ProblemsSection />
+          <BeforeAfterSection />
+          <PlatformsSection />
+          <SolutionsSection />
+          <TimelineSection />
+          <TestimonialsSection />
+          <TeamSection />
+          <DiagnosticForm />
+          <CTASection />
+          <Footer />
+        </Suspense>
       </main>
     </>
   );

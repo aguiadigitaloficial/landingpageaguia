@@ -130,7 +130,7 @@ function VisualMidia() {
           { src:'/logos/META-LOGO-1.png', alt:'Meta' },
           { src:'/logos/LINKEDIN-LOGO-3.png', alt:'LinkedIn' },
         ].map((logo, i) => (
-          <img key={i} src={logo.src} alt={logo.alt} style={{ width:'clamp(48px, 12vw, 72px)', height:'clamp(48px, 12vw, 72px)', objectFit:'contain' }} />
+          <img key={i} src={logo.src} alt={logo.alt} loading="lazy" width={72} height={72} style={{ width:'clamp(48px, 12vw, 72px)', height:'clamp(48px, 12vw, 72px)', objectFit:'contain' }} />
         ))}
       </div>
       <svg width="300" height="240" viewBox="0 0 180 140" fill="none">
@@ -216,7 +216,7 @@ function VisualPaginas() {
                 <span style={{ fontFamily:'"Montserrat",sans-serif', fontSize:12, fontWeight:700, color:m.color }}>{m.val}</span>
               </div>
               <div style={{ height:5, backgroundColor:'rgba(255,255,255,.08)', borderRadius:3, overflow:'hidden' }}>
-                <div style={{ '--w':m.pct, height:'100%', width:m.pct, backgroundColor:m.color, borderRadius:3, animation:`speedBar .8s ${i*0.2+0.4}s both ease-out` } as any} />
+                <div style={{ '--w':m.pct, height:'100%', width:m.pct, backgroundColor:m.color, borderRadius:3, animation:`speedBar .8s ${i*0.2+0.4}s both ease-out` } as React.CSSProperties} />
               </div>
             </div>
           ))}
@@ -406,7 +406,7 @@ export function SolutionsSection() {
   const onPointerUp = (e: React.PointerEvent) => {
     const diff = dragStart.current - e.clientX;
     if (Math.abs(diff) > 40) {
-      diff > 0 ? next() : prev();
+      if (diff > 0) next(); else prev();
     }
   };
 

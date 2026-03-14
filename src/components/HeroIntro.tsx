@@ -104,7 +104,6 @@ const HeroIntro = () => {
           backgroundColor: 'hsl(145, 100%, 45%)',
           willChange: 'opacity',
           pointerEvents: 'auto',
-          // @ts-ignore
           '--mask-size': '220px',
         } as React.CSSProperties}
       >

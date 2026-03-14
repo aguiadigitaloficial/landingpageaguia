@@ -19,4 +19,16 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          gsap: ["gsap"],
+          "framer-motion": ["framer-motion"],
+          three: ["three"],
+        },
+      },
+    },
+  },
 }));

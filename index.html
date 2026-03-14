@@ -3,10 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fontes: preconnect + preload assíncrono (elimina render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
-    
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+      onload="this.rel='stylesheet'"
+    >
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+    </noscript>
+
     <!-- Primary SEO -->
     <title>Águia Digital</title>
     <meta name="description" content="Agência de marketing digital especializada em empresas de serviços. Tráfego pago, funil de vendas, automação e estratégia para escalar seu negócio com previsibilidade e ROI comprovado.">
@@ -14,25 +24,23 @@
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Águia Digital" />
     <meta name="theme-color" content="#00FF7F" />
-    
+
     <!-- Open Graph -->
-    
-    
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aguiadigital.com.br/" />
+    <meta property="og:title" content="Águia Digital">
+    <meta property="og:description" content="Agência de marketing digital especializada em empresas de serviços. Tráfego pago, funil de vendas, automação e estratégia para escalar seu negócio com previsibilidade e ROI comprovado.">
     <meta property="og:image" content="https://aguiadigital.com.br/logos/aguia-logo.png">
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Águia Digital" />
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    
-    
+    <meta name="twitter:title" content="Águia Digital">
+    <meta name="twitter:description" content="Agência de marketing digital especializada em empresas de serviços. Tráfego pago, funil de vendas, automação e estratégia para escalar seu negócio com previsibilidade e ROI comprovado.">
     <meta name="twitter:image" content="https://aguiadigital.com.br/logos/aguia-logo.png">
-
-    <!-- Favicon -->
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -54,11 +62,7 @@
       ]
     }
     </script>
-    <meta property="og:title" content="Águia Digital">
-  <meta name="twitter:title" content="Águia Digital">
-  <meta property="og:description" content="Agência de marketing digital especializada em empresas de serviços. Tráfego pago, funil de vendas, automação e estratégia para escalar seu negócio com previsibilidade e ROI comprovado.">
-  <meta name="twitter:description" content="Agência de marketing digital especializada em empresas de serviços. Tráfego pago, funil de vendas, automação e estratégia para escalar seu negócio com previsibilidade e ROI comprovado.">
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

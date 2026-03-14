@@ -107,6 +107,9 @@ const Footer = () => {
           <img
             src={aguiaLogoFooter}
             alt="Águia Digital"
+            loading="lazy"
+            width={132}
+            height={44}
             style={{ height: 'clamp(32px, 4vw, 44px)', width: 'auto', objectFit: 'contain' }}
           />
 

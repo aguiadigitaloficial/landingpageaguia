@@ -93,22 +93,16 @@ export function PlatformSelector() {
           <button
             key={p.id}
             onClick={() => handleClick(i)}
+            className={`
+              relative flex flex-1 items-center justify-center
+              w-full border-none rounded-none cursor-pointer
+              transition-background duration-400 ease-in
+              px-4 py-8 sm:px-8 sm:py-8 md:px-[48px] md:py-[32px]
+              ${isActive ? 'bg-[rgba(0,255,127,0.04)]' : 'bg-transparent'}
+              ${i !== 0 ? 'border-t border-t-[rgba(255,255,255,0.06)]' : ''}
+            `}
             style={{
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '32px 48px',
-              background: isActive
-                ? 'rgba(0,255,127,0.04)'
-                : 'transparent',
-              border: 'none',
               borderTop: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.06)',
-              borderRadius: 0,
-              cursor: 'pointer',
-              position: 'relative',
-              width: '100%',
-              transition: 'background 0.4s ease',
             }}
           >
             {/* Active highlight glow from left */}
@@ -127,15 +121,16 @@ export function PlatformSelector() {
             <img
               src={p.logo}
               alt={p.alt}
+              loading="lazy"
+              className={`
+                h-16 sm:h-24 md:h-[140px]
+                w-auto max-w-[85%] object-contain relative z-10
+                transition-all duration-400 ease-in-out
+                ${isActive ? 'filter-none opacity-100' : 'grayscale brightness-150 opacity-25'}
+              `}
               style={{
-                height: '80px',
-                width: 'auto',
-                objectFit: 'contain',
                 filter: isActive ? 'none' : 'grayscale(100%) brightness(1.8)',
                 opacity: isActive ? 1 : 0.25,
-                transition: 'filter 0.4s ease, opacity 0.4s ease',
-                position: 'relative',
-                zIndex: 1,
               }}
             />
           </button>

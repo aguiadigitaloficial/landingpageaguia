@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import aguiaLogo from "@/assets/aguia-logo-navbar.png";
 import CtaButton from "@/components/ui/cta-button";
 
-const navLinks = ["Início", "Sobre", "Serviços", "Resultados", "Diagnóstico", "Contato"];
+const navLinks = ["Início", "Diferencial", "Soluções", "Casos de Sucesso", "Nossos Conselheiros", "Diagnóstico"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -28,13 +28,14 @@ const Navbar = () => {
     setMobileOpen(false);
     const sectionMap: Record<string, string> = {
       "Início": "hero",
-      "Sobre": "conselheiros",
-      "Serviços": "solucoes",
-      "Resultados": "depoimentos",
+      "Diferencial": "diferenca",
+      "Soluções": "solucoes",
+      "Casos de Sucesso": "depoimentos",
+      "Nossos Conselheiros": "conselheiros",
       "Diagnóstico": "diagnostico",
-      "Contato": "footer",
     };
-    document.getElementById(sectionMap[id] || "hero")?.scrollIntoView({ behavior: "smooth" });
+    const targetId = sectionMap[id] || "hero";
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -51,7 +52,7 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center">
-            <img src={aguiaLogo} alt="Águia Digital" className="h-9 w-auto" />
+            <img src={aguiaLogo} alt="Águia Digital" width={120} height={36} className="h-9 w-auto" />
           </div>
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (

@@ -1,287 +1,312 @@
 import { useEffect, useRef, useState } from 'react';
-import { TrendingDown, Users, BarChart3, type LucideIcon } from 'lucide-react';
 import CtaButton from '@/components/ui/cta-button';
 
-const cards: { number: string; Icon: LucideIcon; title: string; text: string }[] = [
+const problems = [
   {
     number: '01',
-    Icon: TrendingDown,
     title: 'FRUSTRAÇÃO COM AGÊNCIAS',
-    text: 'Cansado de promessas vazias e relatórios confusos? Nós entregamos clareza e um plano de ação real.',
+    text: 'Cansado de promessas vazias e relatórios confusos? Entregamos clareza e um plano de ação real.',
   },
   {
     number: '02',
-    Icon: Users,
     title: 'FALTA DE LEADS QUALIFICADOS',
-    text: 'Seu tráfego não vira venda? Nós estruturamos seu funil completo para atrair e converter o cliente certo.',
+    text: 'Seu tráfego não vira venda? Estruturamos o funil completo para atrair e converter o cliente certo.',
   },
   {
     number: '03',
-    Icon: BarChart3,
-    title: 'ESTAGNAÇÃO / FALTA DE PREVISIBILIDADE',
-    text: 'Suas vendas são instáveis? Criamos uma máquina de vendas previsível e escalável.',
+    title: 'ESTAGNAÇÃO E IMPREVISIBILIDADE',
+    text: 'Vendas instáveis? Criamos uma máquina de vendas previsível e escalável que funciona no automático.',
   },
 ];
 
-// Offset for the "deck" cards behind the active one
-const deckOffsets = [
-  { rotate: '0deg',    translateX: '0px',  translateY: '0px',  scale: 1 },      // active (top)
-  { rotate: '2.5deg',  translateX: '6px',  translateY: '-8px', scale: 0.97 },   // behind 1
-  { rotate: '-2deg',   translateX: '-5px', translateY: '-16px', scale: 0.94 },  // behind 2
-];
+const DURATION = 3000;
+const TICK = 30;
 
 const ProblemsSection = () => {
-  const sectionRef  = useRef<HTMLDivElement>(null);
-  const titleRef    = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLDivElement>(null);
-  const btnRef      = useRef<HTMLDivElement>(null);
-  const dotsRef     = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const [active, setActive]     = useState(0);
-  const [visible, setVisible]   = useState(false);
-  const [animating, setAnimating] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startCycle = (index: number) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
 
-  // Entrance animation on scroll into view
+    setProgress(0);
+    let elapsed = 0;
+
+    progressRef.current = setInterval(() => {
+      elapsed += TICK;
+      setProgress(Math.min((elapsed / DURATION) * 100, 100));
+    }, TICK);
+
+    timerRef.current = setTimeout(() => {
+      const next = (index + 1) % problems.length;
+      setActive(next);
+      startCycle(next);
+    }, DURATION);
+  };
+
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
+    startCycle(0);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-advance once section is visible
-  useEffect(() => {
-    if (!visible) return;
-    const startInterval = () => {
-      intervalRef.current = setInterval(() => {
-        setActive(prev => (prev + 1) % cards.length);
-      }, 3500);
-    };
-    startInterval();
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [visible]);
-
-  const goTo = (index: number) => {
-    if (index === active || animating) return;
-    // Reset auto-advance timer on manual interaction
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setActive(prev => (prev + 1) % cards.length);
-    }, 3500);
-    setAnimating(true);
+  const handleClick = (index: number) => {
     setActive(index);
-    setTimeout(() => setAnimating(false), 500);
+    startCycle(index);
   };
-
-  // For each card, compute its position in the deck relative to the active index
-  const getDeckPosition = (cardIndex: number) => {
-    const diff = (cardIndex - active + cards.length) % cards.length;
-    return deckOffsets[diff] ?? deckOffsets[2];
-  };
-
-  const fadeStyle = (delay = 0): React.CSSProperties => ({
-    opacity:    visible ? 1 : 0,
-    transform:  visible ? 'translateY(0)' : 'translateY(24px)',
-    transition: `opacity 0.65s ease ${delay}ms, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-  });
 
   return (
-    <div
-      ref={sectionRef}
+    <section
       id="problemas"
       style={{
         position: 'relative',
         zIndex: 2,
-        backgroundColor: '#00FF7F',
-        padding: 'clamp(64px, 10vh, 120px) clamp(20px, 5vw, 80px)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        backgroundColor: '#080808',
+        padding: 'clamp(80px, 12vh, 140px) clamp(20px, 5vw, 80px)',
+        overflow: 'hidden',
       }}
     >
-      {/* Title */}
-      <div ref={titleRef} style={{ textAlign: 'center', marginBottom: 'clamp(6px, 1.5vw, 12px)', ...fadeStyle(0) }}>
-        <h2
-          style={{
-            fontFamily: '"Montserrat", sans-serif',
-            fontWeight: 800,
-            fontSize: 'clamp(26px, 6.5vw, 72px)',
-            color: '#0a0a0a',
-            letterSpacing: '-0.025em',
-            lineHeight: 0.95,
-            textTransform: 'uppercase',
-            margin: 0,
-          }}
-        >
-          CHEGA DE INVESTIR<br />SEM VER O RETORNO
-        </h2>
-      </div>
-
-      {/* Subtitle */}
-      <div ref={subtitleRef} style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vh, 96px)', ...fadeStyle(150) }}>
-        <p
-          style={{
-            fontFamily: '"DM Sans", sans-serif',
-            fontWeight: 400,
-            fontSize: 'clamp(13px, 1.5vw, 17px)',
-            color: 'rgba(0,0,0,0.5)',
-            lineHeight: 1.6,
-            maxWidth: 'clamp(280px, 50vw, 520px)',
-            margin: '10px auto 0',
-          }}
-        >
-          Identifique os problemas que impedem seu crescimento e descubra como transformá-los em oportunidades.
-        </p>
-      </div>
-
-      {/* Card stack */}
-      <div
-        style={{
-          ...fadeStyle(300),
-          position: 'relative',
-          width: 'clamp(280px, 85vw, 520px)',
-          height: 'clamp(300px, 44vh, 400px)',
-          marginBottom: 'clamp(52px, 7vh, 72px)',
-        }}
-      >
-        {cards.map((card, i) => {
-          const { Icon } = card;
-          const { rotate, translateX, translateY, scale } = getDeckPosition(i);
-          const isActive = i === active;
-
-          return (
-            <div
-              key={card.number}
-              onClick={() => !isActive && goTo(i)}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                background: '#0a0a0a',
-                borderRadius: 'clamp(14px, 2vw, 22px)',
-                padding: 'clamp(24px, 4vw, 48px)',
-                boxShadow: isActive
-                  ? '0 32px 70px rgba(0,0,0,0.35)'
-                  : '0 16px 40px rgba(0,0,0,0.2)',
-                willChange: 'transform, opacity',
-                zIndex: isActive ? 3 : (i === (active + 1) % cards.length ? 2 : 1),
-                transform: `translateY(${translateY}) translateX(${translateX}) rotate(${rotate}) scale(${scale})`,
-                transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease',
-                cursor: isActive ? 'default' : 'pointer',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: '"Montserrat", sans-serif',
-                  fontWeight: 800,
-                  fontSize: 'clamp(10px, 1vw, 12px)',
-                  letterSpacing: '0.2em',
-                  color: '#00FF7F',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: 'clamp(14px, 2vh, 20px)',
-                }}
-              >
-                {card.number} / 03
-              </span>
-
-              <div
-                style={{
-                  width: 'clamp(36px, 5vw, 48px)',
-                  height: 'clamp(36px, 5vw, 48px)',
-                  borderRadius: '10px',
-                  background: 'rgba(0,255,127,0.08)',
-                  border: '1px solid rgba(0,255,127,0.18)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 'clamp(14px, 2.5vh, 24px)',
-                }}
-              >
-                <Icon size={22} color="#00FF7F" strokeWidth={1.8} />
-              </div>
-
-              <h3
-                style={{
-                  fontFamily: '"Montserrat", sans-serif',
-                  fontWeight: 800,
-                  fontSize: 'clamp(16px, 2.2vw, 24px)',
-                  color: '#ffffff',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
-                  textTransform: 'uppercase',
-                  marginBottom: 'clamp(10px, 1.5vh, 16px)',
-                }}
-              >
-                {card.title}
-              </h3>
-
-              <p
-                style={{
-                  fontFamily: '"DM Sans", sans-serif',
-                  fontWeight: 400,
-                  fontSize: 'clamp(12px, 1.3vw, 15px)',
-                  color: 'rgba(255,255,255,0.5)',
-                  lineHeight: 1.65,
-                  margin: 0,
-                }}
-              >
-                {card.text}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Dot navigation */}
-      <div
-        ref={dotsRef}
-        style={{
-          ...fadeStyle(450),
-          display: 'flex',
-          gap: '10px',
-          marginBottom: 'clamp(40px, 6vh, 64px)',
-        }}
-      >
-        {cards.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            aria-label={`Ver card ${i + 1}`}
-            style={{
-              width:  i === active ? '24px' : '8px',
-              height: '8px',
-              borderRadius: '4px',
-              backgroundColor: i === active ? '#0a0a0a' : 'rgba(0,0,0,0.25)',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease',
-            }}
+      {/* Background Chart (very subtle) */}
+      <div style={{
+        position: 'absolute',
+        top: '15%',
+        left: 0,
+        right: 0,
+        height: '70%',
+        pointerEvents: 'none',
+        zIndex: 0,
+        opacity: 0.06,
+      }}>
+        <svg preserveAspectRatio="none" style={{ width: '100%', height: '100%' }} viewBox="0 0 1000 400" fill="none">
+          <path
+            d="M 0,50 L 100,70 L 200,55 L 350,130 L 500,110 L 650,250 L 800,200 L 1000,370"
+            stroke="#FF3333"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ filter: 'drop-shadow(0 0 8px rgba(255,51,51,0.6))' }}
           />
-        ))}
+          <path d="M 0,100 L 1000,100 M 0,200 L 1000,200 M 0,300 L 1000,300" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="6,6" />
+        </svg>
       </div>
 
-      {/* CTA Button */}
-      <div ref={btnRef} style={fadeStyle(550)}>
-        <CtaButton variant="on-green" href="#diagnostico">
-          QUERO RESOLVER MEU PROBLEMA
-        </CtaButton>
+      {/* Content */}
+      <div style={{
+        position: 'relative',
+        zIndex: 1,
+        maxWidth: '1200px',
+        margin: '0 auto',
+        display: 'flex',
+        alignItems: 'stretch',
+        gap: 'clamp(40px, 6vw, 80px)',
+        flexWrap: 'wrap',
+      }}>
+
+        {/* LEFT SIDE — Title + CTA */}
+        <div style={{ flex: '1', minWidth: '280px', maxWidth: '520px' }}>
+          <span
+            style={{
+              fontFamily: '"DM Sans", sans-serif',
+              fontWeight: 600,
+              fontSize: '11px',
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              color: '#FF3333',
+              display: 'block',
+              marginBottom: '16px',
+              opacity: 0.9,
+            }}
+          >
+            PROBLEMAS QUE VOCÊ ENFRENTA
+          </span>
+
+          <h2
+            style={{
+              fontFamily: '"Montserrat", sans-serif',
+              fontWeight: 800,
+              fontSize: 'clamp(32px, 5vw, 64px)',
+              color: '#fff',
+              lineHeight: 0.94,
+              letterSpacing: '-0.025em',
+              textTransform: 'uppercase',
+              marginBottom: '24px',
+            }}
+          >
+            CHEGA DE
+            INVESTIR SEM
+            VER O RETORNO
+          </h2>
+
+          <p
+            style={{
+              fontFamily: '"DM Sans", sans-serif',
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: 'clamp(14px, 1.4vw, 16px)',
+              lineHeight: 1.72,
+              marginBottom: '12px',
+            }}
+          >
+            Se você se identifica com um desses cenários, está perdendo dinheiro agora.
+          </p>
+
+          <p
+            style={{
+              fontFamily: '"DM Sans", sans-serif',
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: 'clamp(14px, 1.4vw, 16px)',
+              lineHeight: 1.72,
+              marginBottom: '36px',
+            }}
+          >
+            A maioria das agências cria ilusões com métricas de vaidade. Nós expomos as falhas do seu processo atual e construímos uma máquina real de vendas.
+          </p>
+
+          <CtaButton variant="dark" href="#diagnostico">
+            QUERO RESOLVER MEUS PROBLEMAS
+          </CtaButton>
+        </div>
+
+        {/* RIGHT SIDE — Stacked Vertical Cards (PlatformSelector style) */}
+        <div style={{ flex: '1', minWidth: '300px', position: 'relative' }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+          }}>
+            {/* Vertical Track Line (left edge) */}
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '2px',
+              background: 'rgba(255,255,255,0.08)',
+            }} />
+
+            {/* RED progress indicator (glow traveling down the track) */}
+            {(() => {
+              const segmentHeight = 100 / problems.length;
+              const topPos = active * segmentHeight;
+              const fillHeight = (progress / 100) * segmentHeight;
+              return (
+                <div style={{
+                  position: 'absolute',
+                  left: '-1px',
+                  top: `${topPos}%`,
+                  width: '4px',
+                  height: `${fillHeight}%`,
+                  background: 'linear-gradient(to bottom, rgba(255,51,51,0.2), #FF3333, rgba(255,51,51,0.2))',
+                  borderRadius: '2px',
+                  boxShadow: '0 0 14px 4px rgba(255,51,51,0.5)',
+                  transition: progress === 0 ? 'top 0.3s ease' : 'none',
+                  zIndex: 2,
+                }} />
+              );
+            })()}
+
+            {/* Cards */}
+            {problems.map((p, i) => {
+              const isActive = active === i;
+
+              return (
+                <button
+                  key={p.number}
+                  onClick={() => handleClick(i)}
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'clamp(16px, 3vw, 28px)',
+                    padding: 'clamp(24px, 3vw, 36px) clamp(24px, 3vw, 48px)',
+                    background: isActive ? 'rgba(255,51,51,0.04)' : 'transparent',
+                    border: 'none',
+                    borderTop: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.06)',
+                    borderRadius: 0,
+                    cursor: 'pointer',
+                    position: 'relative',
+                    width: '100%',
+                    textAlign: 'left',
+                    transition: 'background 0.4s ease',
+                  }}
+                >
+                  {/* Active highlight glow from left */}
+                  {isActive && (
+                    <div style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: '60%',
+                      background: 'linear-gradient(to right, rgba(255,51,51,0.06), transparent)',
+                      pointerEvents: 'none',
+                    }} />
+                  )}
+
+                  {/* Large Number */}
+                  <span
+                    style={{
+                      fontFamily: '"Montserrat", sans-serif',
+                      fontWeight: 900,
+                      fontSize: 'clamp(32px, 4vw, 52px)',
+                      color: isActive ? '#FF3333' : 'rgba(255,255,255,0.08)',
+                      lineHeight: 1,
+                      letterSpacing: '-0.03em',
+                      transition: 'color 0.4s ease',
+                      position: 'relative',
+                      zIndex: 1,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {p.number}
+                  </span>
+
+                  {/* Text Content */}
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <h3
+                      style={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontWeight: 700,
+                        fontSize: 'clamp(14px, 1.6vw, 18px)',
+                        color: isActive ? '#ffffff' : 'rgba(255,255,255,0.25)',
+                        letterSpacing: '-0.01em',
+                        lineHeight: 1.2,
+                        textTransform: 'uppercase',
+                        marginBottom: '6px',
+                        transition: 'color 0.4s ease',
+                      }}
+                    >
+                      {p.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: '"DM Sans", sans-serif',
+                        fontWeight: 400,
+                        fontSize: 'clamp(12px, 1.2vw, 14px)',
+                        color: isActive ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.15)',
+                        lineHeight: 1.6,
+                        margin: 0,
+                        transition: 'color 0.4s ease',
+                        maxWidth: '380px',
+                      }}
+                    >
+                      {p.text}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
