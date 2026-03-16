@@ -217,18 +217,6 @@ export function BeforeAfterSection() {
           filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
         }
 
-        /* Animação suave e simples de pulso (substituindo o brilho bugado) */
-        .icon-shine {
-          position: absolute;
-          inset: 0;
-          animation: pulseGlow 3s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-          0% { opacity: 0; transform: scale(0.95); }
-          100% { opacity: 0.6; transform: scale(1.1); }
-        }
-
         /* Typography & Badges refinados */
         .pwd-badge {
           display: inline-flex;
@@ -447,9 +435,6 @@ export function BeforeAfterSection() {
             <svg className="icon-base" width="60" height="60" viewBox="0 0 24 24" fill={GreenColor} xmlns="http://www.w3.org/2000/svg">
               <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z"/>
             </svg>
-            <svg className="icon-shine" width="60" height="60" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z"/>
-            </svg>
           </div>
 
           <div className="pwd-card col-win" ref={winRef}>
@@ -497,9 +482,6 @@ export function BeforeAfterSection() {
         >
           <div className="card-icon">
             <svg className="icon-base" width="60" height="60" viewBox="0 0 24 24" fill="#EF4444" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"/>
-            </svg>
-            <svg className="icon-shine" width="60" height="60" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"/>
             </svg>
           </div>
