@@ -217,20 +217,16 @@ export function BeforeAfterSection() {
           filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
         }
 
-        /* Shine sweep amigável para iOS via máscara CSS */
+        /* Animação suave e simples de pulso (substituindo o brilho bugado) */
         .icon-shine {
           position: absolute;
           inset: 0;
-          -webkit-mask-image: linear-gradient(135deg, transparent 35%, rgba(0,0,0,1) 50%, transparent 65%);
-          -webkit-mask-size: 300% 300%;
-          mask-image: linear-gradient(135deg, transparent 35%, rgba(0,0,0,1) 50%, transparent 65%);
-          mask-size: 300% 300%;
-          animation: shineMask 2s infinite ease-in-out;
+          animation: pulseGlow 3s infinite alternate ease-in-out;
         }
 
-        @keyframes shineMask {
-          0% { -webkit-mask-position: 200% 200%; mask-position: 200% 200%; }
-          100% { -webkit-mask-position: -50% -50%; mask-position: -50% -50%; }
+        @keyframes pulseGlow {
+          0% { opacity: 0; transform: scale(0.95); }
+          100% { opacity: 0.6; transform: scale(1.1); }
         }
 
         /* Typography & Badges refinados */
