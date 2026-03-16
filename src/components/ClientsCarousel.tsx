@@ -1,12 +1,26 @@
 export function ClientsCarousel() {
   const logosRow1 = [
-    'Sartori', 'R4Seed', 'iST', 'Solar Energia', 'VentoMa',
-    'Moruz.AI', 'Living', 'MAIS', 'Microlins', 'ABaste',
+    { name: 'BENVIX', src: '/logos/BENVIX - logo horizontal branco 1.png' },
+    { name: 'Bordas', src: '/logos/Bordas (Sem Fundo) 1.png' },
+    { name: 'Branco', src: '/logos/Branco 1.png' },
+    { name: 'CLUBMED', src: '/logos/CLUBMED 2.png' },
+    { name: 'Design 19', src: '/logos/Design sem nome (19) 1.png' },
+    { name: 'Design 22', src: '/logos/Design sem nome (22) 1.png' },
+    { name: 'Design 23', src: '/logos/Design sem nome (23) 1.png' },
+    { name: 'Design 3', src: '/logos/Design sem nome (3) (1) 1.png' },
+    { name: 'KORUZ', src: '/logos/KORUZ_5 (1) 1.png' },
   ];
 
   const logosRow2 = [
-    'Dagher', 'Grupo Orion', 'Nova Sistemas', 'TechServ', 'MaxLead',
-    'ProSales', 'AlphaGrow', 'NexGen', 'CoreBiz', 'ScaleUp',
+    { name: 'LOGO GUIAR', src: '/logos/LOGO GUIAR 2 1.png' },
+    { name: 'LOGO INET', src: '/logos/LOGO INET - BRANCA 1.png' },
+    { name: 'Prancheta', src: '/logos/Prancheta 46 1.png' },
+    { name: 'VIVARE', src: '/logos/VIVARE - logo horizontal branco 1.png' },
+    { name: 'Bhering', src: '/logos/bhering 1.png' },
+    { name: 'Contecnica', src: '/logos/contecnica 1.png' },
+    { name: 'MasterClinic', src: '/logos/logomasterclinic 1.png' },
+    { name: 'NorteLife', src: '/logos/nortelife 1.png' },
+    { name: 'SF Solar', src: '/logos/sfsolar 1.png' },
   ];
 
   const row1 = [...logosRow1, ...logosRow1];
@@ -90,7 +104,7 @@ export function ClientsCarousel() {
               }}
             >
               {row1.map((logo, i) => (
-                <LogoItem key={`r1-${i}`} name={logo} />
+                <LogoItem key={`r1-${i}`} logo={logo} />
               ))}
             </div>
           </div>
@@ -107,7 +121,7 @@ export function ClientsCarousel() {
               }}
             >
               {row2.map((logo, i) => (
-                <LogoItem key={`r2-${i}`} name={logo} />
+                <LogoItem key={`r2-${i}`} logo={logo} />
               ))}
             </div>
           </div>
@@ -117,32 +131,46 @@ export function ClientsCarousel() {
   );
 }
 
-function LogoItem({ name }: { name: string }) {
+type LogoData = {
+  name: string;
+  src?: string;
+};
+
+function LogoItem({ logo }: { logo: LogoData }) {
+  if (!logo.src) return null; // Apenas imagens
+  
   return (
     <div
       style={{
         display: 'inline-flex',
         alignItems: 'center',
+        justifyContent: 'center',
         padding: '0 36px',
         borderRight: '1px solid rgba(255,255,255,0.06)',
         height: '52px',
         flexShrink: 0,
       }}
     >
-      <span
-        className="font-heading"
+      <img
+        src={encodeURI(logo.src)}
+        alt={logo.name}
         style={{
-          fontWeight: 700,
-          fontSize: '13px',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.35)',
-          whiteSpace: 'nowrap',
-          transition: 'color 0.2s',
+          maxHeight: '36px',
+          maxWidth: '160px',
+          objectFit: 'contain',
+          opacity: 0.7,
+          transition: 'all 0.3s ease',
+          filter: 'brightness(1) invert(0)',
         }}
-      >
-        {name}
-      </span>
+        onMouseEnter={(e) => {
+          e.currentTarget.style.opacity = '1';
+          e.currentTarget.style.transform = 'scale(1.05)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.opacity = '0.7';
+          e.currentTarget.style.transform = 'scale(1)';
+        }}
+      />
     </div>
   );
 }
