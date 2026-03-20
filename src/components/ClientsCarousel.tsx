@@ -5,7 +5,6 @@ export function ClientsCarousel() {
     { name: 'Branco', src: '/logos/Branco 1.png' },
     { name: 'CLUBMED', src: '/logos/CLUBMED 2.png' },
     { name: 'Design 19', src: '/logos/Design sem nome (19) 1.png' },
-    { name: 'Design 22', src: '/logos/Design sem nome (22) 1.png' },
     { name: 'Design 23', src: '/logos/Design sem nome (23) 1.png' },
     { name: 'Design 3', src: '/logos/Design sem nome (3) (1) 1.png' },
     { name: 'KORUZ', src: '/logos/KORUZ_5 (1) 1.png' },
