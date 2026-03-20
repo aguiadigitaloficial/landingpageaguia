@@ -18,14 +18,14 @@ const solutions = [
     items: [
       'Planejamento estratégico baseado em dados',
       'Posicionamento com clareza e propósito',
-      'Direcionamento de metas e indicadores',
+      'Acompanhamento de indicadores focados em vendas',
     ],
   },
   {
     id: 'midia',
-    tag: 'MÍDIA',
-    title: 'MÍDIA DE\nPERFORMANCE',
-    desc: 'Campanhas otimizadas para gerar leads qualificados e maximizar seu ROI.',
+    tag: 'MÍDIAS',
+    title: 'MÍDIAS DE\nPERFORMANCE',
+    desc: 'Campanhas otimizadas para gerar leads e maximizar seu ROI.',
     items: [
       'Google Ads, Meta Ads e LinkedIn Ads',
       'Otimização contínua de campanhas',
@@ -36,11 +36,11 @@ const solutions = [
     id: 'criativos',
     tag: 'CRIATIVOS',
     title: 'CRIATIVOS DE\nALTA CONVERSÃO',
-    desc: 'Peças visuais e copies que capturam atenção e geram ação.',
+    desc: '80% da conversão está no criativo. Vídeos e imagens que capturam a atenção e aumentam a chance da ação do usuário, direcionando-o para compra.',
     items: [
       'Design orientado à conversão',
       'Testes A/B contínuos',
-      'Copies persuasivas e estratégicas',
+      'Copys persuasivos e estratégicos',
     ],
   },
   {
@@ -67,19 +67,19 @@ const solutions = [
   },
   {
     id: 'relacionamento',
-    tag: 'RELACIONAMENTO',
+    tag: 'CRM',
     title: 'CRM &\nAUTOMAÇÃO',
     desc: 'Fluxos automatizados que nutrem leads e aceleram o ciclo de vendas.',
     items: [
-      'Automação de e-mail marketing',
-      'Fluxos de nutrição inteligentes',
-      'Integração com CRM',
+      'automações de atendimentos com IA',
+      'Fluxos para nutrir o relacionamento com sua base',
+      'CRM Integrado ao seu setor de vendas e outros setores',
     ],
   },
   {
     id: 'vendas',
     tag: 'VENDAS',
-    title: 'ESTRUTURAÇÃO\nCOMERCIAL',
+    title: 'ESTRUTURAÇÃO E ACOMPANHAMENTO\nCOMERCIAL',
     desc: 'Processos de vendas otimizados para fechar mais negócios.',
     items: [
       'Scripts e cadências de vendas',

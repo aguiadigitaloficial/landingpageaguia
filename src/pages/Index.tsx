@@ -15,6 +15,7 @@ const QuoteSection = React.lazy(() => import("@/components/QuoteSection"));
 const DiagnosticForm = React.lazy(() => import("@/components/DiagnosticForm"));
 const CTASection = React.lazy(() => import("@/components/CTASection"));
 const Footer = React.lazy(() => import("@/components/Footer"));
+const FloatingWhatsApp = React.lazy(() => import("@/components/FloatingWhatsApp"));
 
 const Index = () => {
   return (
@@ -36,6 +37,7 @@ const Index = () => {
           <DiagnosticForm />
           <CTASection />
           <Footer />
+          <FloatingWhatsApp />
         </Suspense>
       </main>
     </>

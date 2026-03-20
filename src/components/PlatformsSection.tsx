@@ -68,7 +68,7 @@ const PlatformsSection = () => {
               marginBottom: '36px',
             }}
           >
-            Domínio em Meta Ads, Google Ads e LinkedIn Ads para atrair o público certo, reduzir custos e gerar resultados com previsibilidade e escala.
+            Domínio em Meta Ads, Google Ads, LinkedIn Ads e TikTok Ads para atrair o público certo, reduzir custos e gerar resultados com previsibilidade e escala.
           </p>
           <CtaButton variant="dark" href="#diagnostico">
             QUERO ESCALAR COM PERFORMANCE

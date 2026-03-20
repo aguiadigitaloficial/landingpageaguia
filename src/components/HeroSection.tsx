@@ -77,13 +77,13 @@ const Hero = () => {
           className="font-heading"
           style={{
             fontWeight: 900,
-            fontSize: 'clamp(24px, 3vw, 40px)',
-            lineHeight: 1.15,
+            fontSize: 'clamp(24px, 3.5vw, 42px)',
+            lineHeight: 1.1,
             letterSpacing: '-0.02em',
             textTransform: 'uppercase',
             color: '#ffffff',
             textWrap: 'balance',
-            maxWidth: '600px',
+            maxWidth: '800px',
             margin: '0 auto',
             textAlign: 'center',
             ...(!visible ? { opacity: 0, transform: 'translateY(30px)' } : { opacity: 1, transform: 'translateY(0)' }),
@@ -91,10 +91,11 @@ const Hero = () => {
             transitionDelay: '0.3s',
           }}
         >
-          Agência especializada em{' '}
+          Especialistas em escalar{' '}
           <span style={{ color: 'hsl(var(--primary))', fontWeight: 900 }}>
-            empresas de serviços
-          </span>
+            vendas de empresas
+          </span>{' '}
+          com previsibilidade.
         </h1>
 
         {/* Espaçamento */}
@@ -109,7 +110,7 @@ const Hero = () => {
             lineHeight: 1.75,
             letterSpacing: '0.01em',
             color: '#ffffff',
-            maxWidth: '48ch',
+            maxWidth: '60ch',
             margin: '0 auto',
             textAlign: 'center',
             textWrap: 'pretty',
@@ -118,9 +119,8 @@ const Hero = () => {
             transitionDelay: '0.5s',
           }}
         >
-          De empresário para empresário, vamos entender suas dores que
-          te impedem de escalar e desenvolver uma estrutura profissional,
-          previsível e escalável.
+          Unimos posicionamento, tráfego pago, acompanhamento comercial e inteligência
+          artificial para atrair, converter e aumentar suas vendas..
         </p>
 
         {/* ── CTAs ── */}

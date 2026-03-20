@@ -121,7 +121,7 @@ const Footer = () => {
             marginBottom: 28,
             maxWidth: 280,
           }}>
-            Agência de marketing digital especializada em empresas de serviços. Transformamos investimento em crescimento previsível e escalável.
+            Transformamos investimento em crescimento previsível e escalável.
           </p>
 
           {/* Social icons */}
@@ -228,19 +228,6 @@ const Footer = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 32 }}>
             <a
-              href="mailto:contato@aguiadigital.com.br"
-              style={{ display: 'flex', alignItems: 'flex-start', gap: 10, textDecoration: 'none', color: 'inherit' }}
-            >
-              <Mail size={15} color="rgba(0,255,127,0.7)" style={{ marginTop: 1, flexShrink: 0 }} />
-              <span className="font-body" style={{ fontSize: 'clamp(13px, 1.2vw, 14px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.5, transition: 'color .2s' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
-              >
-                contato@aguiadigital.com.br
-              </span>
-            </a>
-
-            <a
               href="tel:+5531999910784"
               style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: 'inherit' }}
             >
@@ -257,6 +244,13 @@ const Footer = () => {
               <MapPin size={15} color="rgba(0,255,127,0.7)" style={{ marginTop: 1, flexShrink: 0 }} />
               <span className="font-body" style={{ fontSize: 'clamp(13px, 1.2vw, 14px)', color: 'rgba(255,255,255,0.38)', lineHeight: 1.5 }}>
                 João Monlevade, MG
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ fontSize: '9px', fontWeight: 800, color: 'rgba(0,255,127,0.7)', border: '1px solid rgba(0,255,127,0.3)', borderRadius: '4px', padding: '2px 4px', flexShrink: 0 }}>CNPJ</div>
+              <span className="font-body" style={{ fontSize: 'clamp(12px, 1.1vw, 13px)', color: 'rgba(255,255,255,0.38)' }}>
+                40.897.694/0001-26
               </span>
             </div>
           </div>

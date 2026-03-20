@@ -58,10 +58,12 @@ export function ClientsCarousel() {
               lineHeight: 1.2,
               marginBottom: '14px',
               textTransform: 'uppercase',
+              textWrap: 'balance',
+              margin: '0 auto',
             }}
           >
-            Conheça nosso método exclusivo e se torne
-            <br />um dos nossos cases de sucesso
+            Conheça empresas que crescem as vendas
+            <br />online mês a mês com o Águia Digital
           </h2>
           <p
             className="font-body"
@@ -70,13 +72,12 @@ export function ClientsCarousel() {
               fontSize: 'clamp(13px, 1.3vw, 15px)',
               color: 'rgba(255,255,255,0.45)',
               lineHeight: 1.7,
-              maxWidth: '560px',
+              maxWidth: '650px',
               margin: '0 auto',
             }}
           >
-            Empresas de diferentes segmentos confiam no nosso método para escalar com
-            previsibilidade, lucratividade e domínio de mercado. Agora, você pode ser
-            o próximo case de sucesso.
+            Marcas que buscam crescer com clareza, estrutura e resultado escolhem nossa
+            agência como parceira.
           </p>
         </div>
 

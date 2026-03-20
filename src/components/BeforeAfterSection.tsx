@@ -432,9 +432,12 @@ export function BeforeAfterSection() {
           }}
         >
           <div className="card-icon">
-            <svg className="icon-base" width="60" height="60" viewBox="0 0 24 24" fill={GreenColor} xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 21h16v-2H4v2zm2-3h12l1.6-11-4.8 3.5-2.8-5-2.8 5L4.4 7 6 18z"/>
-            </svg>
+            <img 
+              src="/logos/aguia-verde.png" 
+              alt="Águia Digital" 
+              className="icon-base"
+              style={{ width: '60px', height: '60px', objectFit: 'contain' }} 
+            />
           </div>
 
           <div className="pwd-card col-win" ref={winRef}>
@@ -444,8 +447,8 @@ export function BeforeAfterSection() {
             
             <ul className="pwd-list" ref={winListRef}>
               {[
-                'Dashboard automatizado com métricas em tempo real',
-                'Investimento com ROI previsível e meta de escala',
+                'Alinhamento semanal / quinzenal com sua equipe comercial para acompanhar de perto sua conversão',
+                'Planejamento focado em vendas (marketing é venda).',
                 'Máquina de vendas ativa atraindo o cliente ideal 24/7',
                 'Sua equipe comercial alinhada as campanhas de marketing',
                 'Acompanhamento do funil completo, de ponta a ponta'

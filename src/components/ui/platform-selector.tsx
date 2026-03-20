@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 const platforms = [
-  { id: 'google', logo: '/logos/LOGO-ADS-4.png', alt: 'Google Ads' },
-  { id: 'meta', logo: '/logos/META-LOGO-1.png', alt: 'Meta' },
-  { id: 'linkedin', logo: '/logos/LINKEDIN-LOGO-3.png', alt: 'LinkedIn Ads' },
+  { id: 'google', logo: '/logos/LOGO-ADS-4.png', alt: 'Google Ads', scale: 1 },
+  { id: 'meta', logo: '/logos/META-LOGO-1.png', alt: 'Meta', scale: 1 },
+  { id: 'linkedin', logo: '/logos/LINKEDIN-LOGO-3.png', alt: 'LinkedIn Ads', scale: 1 },
+  { id: 'tiktok', logo: '/logos/tiktok-logo.png', alt: 'TikTok Ads', scale: 0.55 },
 ];
 
 const DURATION = 2000;
@@ -126,11 +127,12 @@ export function PlatformSelector() {
                 h-16 sm:h-24 md:h-[140px]
                 w-auto max-w-[85%] object-contain relative z-10
                 transition-all duration-400 ease-in-out
-                ${isActive ? 'filter-none opacity-100' : 'grayscale brightness-150 opacity-25'}
+                ${isActive ? 'filter-none opacity-100' : 'grayscale brightness-150 opacity-45'}
               `}
               style={{
                 filter: isActive ? 'none' : 'grayscale(100%) brightness(1.8)',
-                opacity: isActive ? 1 : 0.25,
+                opacity: isActive ? 1 : 0.45,
+                transform: `scale(${p.scale})`,
               }}
             />
           </button>
